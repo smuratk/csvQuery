@@ -32,7 +32,10 @@ namespace csvQuery
         static void Main(string[] args)
         {
             // Input csv file to parse
-            string filePath = @".\resources\exhibitA-input.csv";
+            //string filePath = @".\resources\exhibitA-input.csv";
+            Console.WriteLine(@"Please put input file in C:\piworks\exhibitA-input.csv and press key");
+            Console.ReadKey();
+            string filePath = @"C:\piworks\exhibitA-input.csv";
             Console.WriteLine(filePath);
 
             HashSet<PlayedSong> playSet = new HashSet<PlayedSong>();
@@ -64,10 +67,20 @@ namespace csvQuery
             PlayedSong[] playList = playSet.ToArray();
 
             // Output file contains distinct client, song records
-            string writePath = @".\resources\exhibitA-output.csv";
+            //string writePath = @".\resources\exhibitA-output.csv";
+            string writePath = @"C:\piworks\exhibitA-output.csv";
+            Console.WriteLine(@"Intermediate distinct records --> C:\piworks\exhibitA-output.csv");
             Console.WriteLine(writePath);
             StreamWriter writer = new StreamWriter(File.OpenWrite(writePath));
             writer.WriteLine("CLIENT_ID\tSONG_ID");
+
+            foreach (PlayedSong played in playList)
+            {
+                writer.WriteLine(played.client_id + "\t" + played.song_id);
+            }
+            writer.Flush();
+            writer.Close();
+            Console.WriteLine("Output file write is over");
 
             // [Q2] How many users played 346 distinct songs? 
             // select client_id, count(*) 
